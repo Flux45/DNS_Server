@@ -1,4 +1,6 @@
 import struct
+from dataclasses import dataclass
+
 
 class DnsHeader:
     def __init__(
@@ -59,3 +61,5 @@ class DnsHeader:
 
     def __str__(self):
         return f"id ={self.id}, qr ={self.qr}, opcode ={self.opcode}, aa={self.aa}, tc={self.tc}, rd={self.rd}, ra={self.ra}, z={self.z}, rcode={self.rcode}, qdcount={self.qdcount}, ancount={self.ancount}, nscount={self.nscount}, arcount={self.arcount}) "
+
+
