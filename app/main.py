@@ -1,5 +1,5 @@
 import socket
-
+from app.utils.header import (DnsHeader, )
 
 def main():
     # You can use print statements as follows for debugging, they'll be visible when running tests.
@@ -14,8 +14,24 @@ def main():
         try:
             buf, source = udp_socket.recvfrom(512)
 
-            response = b""
-
+            buf_data = DnsHeader.from_bytes(data = buf[:12])
+            print(f"Received data from {source}: {buf_data}")
+            header = DnsHeader(
+                id = 1234,
+                qr = 1,
+                opcode=0,
+                aa=0,
+                tc=0,
+                rd=0,
+                ra=0,
+                z=0,
+                rcode=0,
+                qdcount=0,
+                ancount=0,
+                nscount=0,
+                arcount=0,
+            )
+            response = header.to_bytes()
             udp_socket.sendto(response, source)
         except Exception as e:
             print(f"Error receiving data: {e}")
